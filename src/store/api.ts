@@ -1,0 +1,20 @@
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+
+
+export const api = createApi({
+  reducerPath: 'api',
+  baseQuery: fetchBaseQuery({
+    baseUrl: '/api/'
+  }),
+  keepUnusedDataFor: 0,
+  endpoints: (builder) => ({
+    /*=== Авторизация ===*/
+    // registration: builder.mutation<IUser, FormData>({
+    //   query: (data) => ({ url: 'auth/registration', method: 'POST', body: data }),
+    // }),
+  }),
+})
+
+export const {
+
+} = api
