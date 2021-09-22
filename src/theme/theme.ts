@@ -1,7 +1,7 @@
 import { extendTheme } from "@chakra-ui/react";
 import { createBreakpoints } from "@chakra-ui/theme-tools"
 import "@fontsource/inter";
-import "@fontsource/inter/700.css";
+import "@fontsource/inter/900.css";
 import "@fontsource/inter/600.css";
 
 import { ContainerTheme, NavButtonTheme } from "./components.theme";
@@ -11,7 +11,7 @@ const styles = {
   global: () => ({
     "html, body": {
       color: "gray.100",
-      bgColor: '#1B202C',
+      bgColor: '#0B0B0D',
       minH: '100%',
       h: '100%'
     },

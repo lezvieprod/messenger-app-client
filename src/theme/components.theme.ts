@@ -12,7 +12,7 @@ export const ContainerTheme = {
   },
   variants: {
     auth: {
-      maxW: '400px'
+      maxW: '1250px'
     }
   },
 }
