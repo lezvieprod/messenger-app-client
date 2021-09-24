@@ -1,6 +1,5 @@
-import { useToast } from '@chakra-ui/react';
-import { useEffect } from 'react'
 import { IResponseError } from '../types/models/Error';
+
 
 
 type UseQueryResult<T, P> = {
@@ -39,24 +38,11 @@ type UseQueryOptions = {
 */
 
 
-export const useAsyncApi = <T, R = string | {}>(hook: Function, query?: R, params?: UseQueryOptions) => {
+export const useQueryWithErrorHandling = <T, R = string | {}, S = IResponseError>(
+  hook: Function, query?: R, params?: UseQueryOptions
+) => {
 
-  const toast = useToast()
-  const toastId: string = 'apiError'
-  const { data, error, isLoading, isFetching, refetch }: UseQueryResult<T, IResponseError> = hook(query, params)
-
-  useEffect(() => {
-    if (error && !toast.isActive(toastId)) {
-      toast({
-        id: toastId,
-        title: error.data.title,
-        description: error.data.message,
-        status: "error",
-        duration: 5000,
-        isClosable: true
-      })
-    }
-  }, [toast, error])
+  const { data, error, isLoading, isFetching, refetch }: UseQueryResult<T, S> = hook(query, params)
 
   return { data, error, isLoading, isFetching, refetch } as const
 }

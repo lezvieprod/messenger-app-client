@@ -11,13 +11,13 @@ const styles = {
   global: () => ({
     "html, body": {
       color: "gray.100",
-      bgColor: '#0B0B0D',
+      bgColor: 'brand.900',
       minH: '100%',
       h: '100%'
     },
     "html": {
       overflowX: "hidden",
-      overflowY: 'scroll'
+      // overflowY: 'scroll'
     },
     "body, #root": {
       d: 'flex',
@@ -27,8 +27,15 @@ const styles = {
     a: {
       color: "blue.500",
     },
-   
+
   }),
+}
+
+const colors = {
+  brand: {
+    700: "#191B20",
+    900: "#0B0B0D",
+  },
 }
 
 const fonts = {
@@ -56,4 +63,4 @@ const breakpoints = createBreakpoints({
 })
 
 
-export const theme = extendTheme({config, styles, fonts, components, breakpoints })
+export const theme = extendTheme({ config, colors, styles, fonts, components, breakpoints })

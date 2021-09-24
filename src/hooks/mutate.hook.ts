@@ -9,21 +9,28 @@ export const useMutateWithAlert = () => {
   const toastIdError: string = 'mutateError'
   const [errorData, setErrorData] = useState<IResponseError | null>(null)
 
-  const asyncMutate = useCallback(async <T>(callback: any) => {
+  const asyncMutate = useCallback(async <T>(callback: any, withToast?: boolean) => {
     try {
       return await callback.unwrap() as T
     } catch ({ data }) {
+
       if (isApiError(data)) {
         setErrorData(data)
-        return Promise.reject()
+        withToast && toast({
+          id: toastIdError,
+          title: data.title,
+          description: data.message,
+          position: "bottom-right",
+          status: "error",
+        })
+        return Promise.reject({ data })
       } else {
         toast({
           id: toastIdError,
           title: 'Неизвестная ошибка',
+          position: "bottom-right",
           description: 'Критическая ошибка. Невозможно отправить запрос (client)',
           status: "error",
-          duration: 5000,
-          isClosable: true
         })
         return Promise.reject()
       }

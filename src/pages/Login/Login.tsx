@@ -26,7 +26,6 @@ export const Login: React.FC<ILoginProps> = ({ onSubmitHandle, isLoading, errorD
   return (
     <Flex flexDirection={'column'} w={'100%'}>
       <Heading size={'lg'} mb={8} >{isLoading ? 'Загрузка...' : 'Вход в аккаунт'}</Heading>
-
       <Box as={'form'} onSubmit={onSubmit} pos={'relative'} >
 
         {
@@ -45,7 +44,6 @@ export const Login: React.FC<ILoginProps> = ({ onSubmitHandle, isLoading, errorD
             <Preloader />
           </Box>
         }
-
         <VStack alignItems={'stretch'} spacing={5} >
 
           <RegFormField
@@ -68,8 +66,8 @@ export const Login: React.FC<ILoginProps> = ({ onSubmitHandle, isLoading, errorD
         </VStack>
 
         <VStack alignItems={'stretch'} spacing={5} mt={8}>
-          <Button type={'submit'} bg={'purple.600'} _hover={{ bg: 'purple.500' }} _focus={{ boxShadow: "none", }}>Войти</Button>
-          <Button as={Link} to={'/auth/registration'} size="sm" variant="link" _focus={{ boxShadow: "none", }}>Нет аккаунта?</Button>
+          <Button type={'submit'} bg={'purple.600'} _hover={{ bg: 'purple.500' }} _focus={{ boxShadow: "none" }}>Войти</Button>
+          <Button as={Link} to={'/auth/registration'} size="sm" variant="link" _focus={{ boxShadow: "none" }}>Нет аккаунта?</Button>
         </VStack>
 
       </Box>

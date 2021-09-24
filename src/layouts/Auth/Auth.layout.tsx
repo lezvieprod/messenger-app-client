@@ -11,7 +11,7 @@ interface IAuthLayoutProps {
 export const AuthLayout: React.FC<IAuthLayoutProps> = ({ children }) => {
   return (
     <Container variant={'auth'} h={'100%'} d={'flex'} flexDirection={'column'}>
-      <Flex my={'auto'} bg={'#191B20'} w={'100%'} p={12} borderRadius={'md'} boxShadow={'xs'} minH={'666px'} maxW={'1000px'} mx={'auto'}>
+      <Flex my={'auto'} bg={'brand.700'} w={'100%'} p={12} borderRadius={'md'} boxShadow={'xs'} minH={'666px'} maxW={'1000px'} mx={'auto'}>
         <Suspense fallback={<Preloader />}>
           <SimpleGrid columns={2} spacing={8} w={'100%'}>
             <Flex flexDirection={'column'} alignItems={'center'} justifyContent={'center'}>

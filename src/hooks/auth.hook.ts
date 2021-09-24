@@ -3,33 +3,21 @@ import { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { useGetCurrentUserMutation } from '../store/api'
-// import { useGetCurrentUserMutation } from '../redux/api/api'
 import { setAppIsReady, setCurrentUser } from '../store/reducers/app.reducer'
 import { RootState } from '../store/store'
 import { IUser } from '../types/models/User'
+import { isApiError } from '../utils/fetch'
 import { useMutateWithAlert } from './mutate.hook'
 
-/*
- *=== СХЕМА РАБОТЫ ХУКА АВТОРИЗАЦИИ ===* 
- При использовании асинхронной функции login отправляем запрос
- о получении актуальных данных текущего пользователя
- записываем эти данные в локальное хранилище и если пользователь
- авторизован (есть токен в localstorage), то на каждую инициализацию приложения
- получаем актуальные данные и записываем в state
- ** Если юзер не авторизован, то запрос не отправляется **
- ==========
-*/
-
-const storageName: string = 'currentUser'
-
 export const useAuth = () => {
+
+  const storageName: string = 'currentUser'
 
   const {
     currentUser: { token, _id, firstName, lastName },
     isAuthenticated,
     isAppReady
   } = useSelector((state: RootState) => state.app)
-
 
   const [getCurrentUser] = useGetCurrentUserMutation()
   const { asyncMutate } = useMutateWithAlert()
@@ -42,16 +30,17 @@ export const useAuth = () => {
       const response = await asyncMutate<IUser>(getCurrentUser({ _id, token }))
       dispatch(setCurrentUser({ ...response, token }))
 
-      if (withAlert) {
-        isFirstTime
-          ? toast({ title: `Добро пожаловать ${response.firstName}!`, status: "success", duration: 5000, isClosable: true })
-          : toast({ title: `С возвращением ${response.firstName}!`, status: "success", duration: 5000, isClosable: true })
+      if (withAlert && isFirstTime) {
+        toast({ title: `Добро пожаловать ${response.firstName}!`, status: "info", position: "bottom-right" })
+      } else if (withAlert && !isFirstTime) {
+        toast({ title: `С возвращением ${response.firstName}!`, status: "info", position: "bottom-right" })
       }
 
-      localStorage.setItem(storageName, JSON.stringify({
-        token, _id
-      }))
-    } catch (e) {
+      localStorage.setItem(storageName, JSON.stringify({ token, _id }))
+    } catch ({ data }) {
+      if (isApiError(data)) {
+        toast({ title: data.title, description: data.message, position: "bottom-right", status: "error", isClosable: true })
+      }
       localStorage.removeItem(storageName)
     }
   }, [dispatch, asyncMutate, getCurrentUser, toast])
