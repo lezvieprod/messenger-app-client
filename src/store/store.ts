@@ -1,9 +1,11 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit"
 import { api } from "./api";
 import app from "./reducers/app.reducer"
+import messages from "./reducers/messages.reducer"
+
 
 const reducers = combineReducers({
-  app,
+  app, messages,
   [api.reducerPath]: api.reducer,
 })
 

@@ -7,6 +7,7 @@ import { ILoginSubmit } from '../types/submits/LoginSubmit'
 import { IMessageSubmit } from '../types/submits/MessageSubmit'
 import { IRegSubmit } from '../types/submits/RegistrationSubmit'
 import { RootState } from './store'
+import socket from '../socket'
 
 
 export const api = createApi({
@@ -47,7 +48,33 @@ export const api = createApi({
       query: (message) => ({ url: `messages/createmessage`, method: 'POST', body: message }),
     }),
     getMessages: builder.query<IMessage[], string>({
-      query: (dialogId) => ({ url: `messages/${dialogId}` })
+      query: (dialogId) => ({ url: `messages/${dialogId}` }),
+      async onCacheEntryAdded(_, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
+        try {
+          await cacheDataLoaded
+
+          const setNewMessage = (message: IMessage) => {
+            updateCachedData((draft) => {
+              draft.push({ ...message })
+            })
+          }
+
+          const deleteMessage = (_id: string) => {
+            updateCachedData((draft) => {
+              draft.splice(draft.findIndex((message) => message._id === _id), 1);
+            })
+          }
+
+          socket.on('MESSAGE:SET_NEW_MESSAGE', setNewMessage)
+          socket.on('MESSAGE:DELETE', deleteMessage)
+        } catch { }
+
+        await cacheEntryRemoved
+
+        socket.off("MESSAGE:SET_NEW_MESSAGE");
+        socket.off("MESSAGE:DELETE");
+
+      },
     }),
   }),
 })
