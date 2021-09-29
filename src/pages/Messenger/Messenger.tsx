@@ -12,19 +12,13 @@ export const Messenger: React.FC = () => {
 
 
   return (
-    <Flex bg={'brand.700'} h={'100%'} borderRadius={'md'}>
-      <Flex flexDirection={'column'} minW={'380px'}>
-        <Box p={5}>
-          <Heading fontSize={'22px'} color={'purple.400'}>Security Messenger</Heading>
+    <Flex h={'100%'} bg={'#fff'} borderRadius={'md'} boxShadow="sm">
+      <Flex flexDirection={'column'} w={'340px'} minW={'340px'}>
+        <Box p={7}>
+          <Heading fontSize={'32px'}>Ваши диалоги</Heading>
         </Box>
         <DialogsContainer />
-        <Box mt={'auto'} p={5}>
-          <Box w={'100%'} mb={3} h={'3px'} bg={'#292D35'} borderRadius={'lg'}></Box>
-          <Text color={'purple.400'}>Вы авторизованы как </Text>
-          <Box>
-          {firstName} {lastName}
-          </Box>
-        </Box>
+
       </Flex>
       <Box w={'100%'}>
         <Route exact path={'/'}>

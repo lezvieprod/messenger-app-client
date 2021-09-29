@@ -40,8 +40,32 @@ export const api = createApi({
     createDialog: builder.mutation<void, IUser>({
       query: (user) => ({ url: `dialogs/createdialog`, method: 'POST', body: user }),
     }),
-    getAllDialogs: builder.query<{ users: IDialog[], total: number }, string>({
+    getAllDialogs: builder.query<IDialog[], string>({
       query: (currentUserId) => ({ url: `dialogs/${currentUserId}` }),
+      async onCacheEntryAdded(_, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
+        try {
+          await cacheDataLoaded
+
+          const updateLastMessage = (message: string, dialogId: string) => {
+            updateCachedData((draft) => {
+              const arr = draft.find((dialog) => dialog._id === dialogId)
+              if(arr) {
+                arr.lastMessage = message;
+              }
+
+            })
+          }
+
+
+          socket.on('DIALOG:UPDATE_LAST_MESSAGE', updateLastMessage)
+        } catch { }
+
+        await cacheEntryRemoved
+
+
+        socket.off("DIALOG:UPDATE_LAST_MESSAGE");
+
+      },
     }),
     /*=== Работа с сообщениями ===*/
     createMessage: builder.mutation<void, IMessageSubmit>({
@@ -54,6 +78,8 @@ export const api = createApi({
           await cacheDataLoaded
 
           const setNewMessage = (message: IMessage) => {
+            console.log('API MESSAGE', message);
+            
             updateCachedData((draft) => {
               draft.push({ ...message })
             })

@@ -3,5 +3,6 @@ export interface IMessage {
   message: string,
   author: string,
   sendDate?: Date,
-  dialogId: string
+  dialogId: string,
+  ownerId: string,
 }

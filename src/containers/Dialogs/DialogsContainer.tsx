@@ -8,9 +8,9 @@ import { IDialog } from '../../types/models/Dialog';
 const DialogsContainer = () => {
 
   const { _id } = useAuth()
-  const { data, error, isLoading, isFetching } = useQueryWithErrorHandling<IDialog[]>(useGetAllDialogsQuery, _id)
+  const { data: dialogs, error, isLoading, isFetching } = useQueryWithErrorHandling<IDialog[]>(useGetAllDialogsQuery, _id)
 
-  return <Dialogs {...data} isLoading={isLoading} isFetching={isFetching} error={error} />
+  return <Dialogs dialogs={dialogs} isLoading={isLoading} isFetching={isFetching} error={error} />
 }
 
 export default DialogsContainer;

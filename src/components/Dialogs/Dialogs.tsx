@@ -1,6 +1,9 @@
 import { Button } from '@chakra-ui/button';
+import Icon from '@chakra-ui/icon';
 import { Box, Flex } from '@chakra-ui/layout';
+import { Fade } from '@chakra-ui/transition';
 import React from 'react';
+import { VscAccount } from 'react-icons/vsc';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../hooks/auth.hook';
 import { IDialog } from '../../types/models/Dialog';
@@ -54,20 +57,33 @@ const DialogItem: React.FC<{ dialog: IDialog }> = ({ dialog }) => {
     exact
     as={NavLink}
     to={'/dialog/' + dialog._id}
-    p={7}
-    variant={'ghost'}
-    color={'white'}
-    colorScheme={'purple'}
+    colorScheme={'white'}
+    color={'brand.dark_gray'}
     borderRadius={'0'}
     justifyContent={'flex-start'}
     _focus={{ boxShadow: "none" }}
+    py={8}
+    px={7}
     activeStyle={{ borderLeft: '2px solid', borderColor: 'purple.600', background: 'rgba(214, 188, 250, 0.07)' }}
 
   >
-    {
-      _id === dialog.firstOwner._id
-        ? dialog.secondOwner.firstName + ' ' + dialog.secondOwner.lastName
-        : dialog.firstOwner.firstName + ' ' + dialog.firstOwner.lastName
-    }
+    <Icon as={VscAccount} boxSize={'28px'} mr={4} />
+    <Box overflow={'hidden'}>
+      <Box mb={1}>
+        {
+          _id === dialog.firstOwner._id
+            ? dialog.secondOwner.firstName + ' ' + dialog.secondOwner.lastName
+            : dialog.firstOwner.firstName + ' ' + dialog.firstOwner.lastName
+        }
+      </Box>
+      <Box as={Fade} in={!!dialog.lastMessage} color={'#9b9b9b'} fontSize={'14px'} fontWeight={'400'} whiteSpace={'nowrap'} textOverflow={'ellipsis'} overflow={'hidden'} h={'17px'}>
+        {
+          dialog.lastMessage && dialog.lastMessage.length >= 90
+            ? dialog.lastMessage.substring(0, 90) + '...'
+            : dialog.lastMessage
+        }
+      </Box>
+    </Box>
+
   </Button>
 }

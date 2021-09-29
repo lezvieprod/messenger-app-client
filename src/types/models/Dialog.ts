@@ -5,4 +5,5 @@ export interface IDialog {
   createDate: Date,
   firstOwner: IUser,
   secondOwner: IUser,
+  lastMessage: string,
 }

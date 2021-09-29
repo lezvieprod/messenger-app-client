@@ -40,7 +40,7 @@ export const Login: React.FC<ILoginProps> = ({ onSubmitHandle, isLoading, errorD
         }
         {
           isLoading &&
-          <Box pos={'absolute'} top={0} r={0} w={'100%'} h={'100%'} bg={'#191B20'} zIndex={1}>
+          <Box pos={'absolute'} top={0} r={0} w={'100%'} h={'100%'} bg={'#fff'} zIndex={1}>
             <Preloader />
           </Box>
         }
@@ -66,8 +66,8 @@ export const Login: React.FC<ILoginProps> = ({ onSubmitHandle, isLoading, errorD
         </VStack>
 
         <VStack alignItems={'stretch'} spacing={5} mt={8}>
-          <Button type={'submit'} bg={'purple.600'} _hover={{ bg: 'purple.500' }} _focus={{ boxShadow: "none" }}>Войти</Button>
-          <Button as={Link} to={'/auth/registration'} size="sm" variant="link" _focus={{ boxShadow: "none" }}>Нет аккаунта?</Button>
+          <Button type={'submit'} bg={'brand.purple'} color={'#fff'} _hover={{ bg: 'purple.500' }} _focus={{ boxShadow: "none" }}>Войти</Button>
+          <Button as={Link} to={'/auth/registration'} color={'brand.dark_gray'}  size="sm" variant="link" _focus={{ boxShadow: "none" }}>Нет аккаунта?</Button>
         </VStack>
 
       </Box>

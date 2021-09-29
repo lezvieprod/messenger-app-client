@@ -11,12 +11,12 @@ interface IAuthLayoutProps {
 export const AuthLayout: React.FC<IAuthLayoutProps> = ({ children }) => {
   return (
     <Container variant={'auth'} h={'100%'} d={'flex'} flexDirection={'column'}>
-      <Flex my={'auto'} bg={'brand.700'} w={'100%'} p={12} borderRadius={'md'} boxShadow={'xs'} minH={'666px'} maxW={'1000px'} mx={'auto'}>
+      <Flex my={'auto'} bg={'#fff'} w={'100%'} p={12} borderRadius={'lg'} boxShadow={'md'} minH={'666px'} maxW={'1000px'} mx={'auto'}>
         <Suspense fallback={<Preloader />}>
           <SimpleGrid columns={2} spacing={8} w={'100%'}>
             <Flex flexDirection={'column'} alignItems={'center'} justifyContent={'center'}>
-              <Icon as={BsCheckCircle} color={'purple.400'} boxSize={'190px'} />
-              <Heading fontSize={'42px'} fontWeight={'900'}>Security Chat</Heading>
+              <Icon as={BsCheckCircle} color={'brand.purple'} boxSize={'190px'} />
+              <Heading fontSize={'42px'}  color={'brand.purple'} fontWeight={'900'}>Security Chat</Heading>
             </Flex>
             <Flex flexDirection={'column'} alignItems={'center'} justifyContent={'center'}>
               {children}

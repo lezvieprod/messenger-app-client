@@ -10,7 +10,7 @@ import { ContainerTheme, NavButtonTheme } from "./components.theme";
 const styles = {
   global: () => ({
     "html, body": {
-      color: "gray.100",
+      color: "#393A3E",
       bgColor: 'brand.900',
       minH: '100%',
       h: '100%'
@@ -33,8 +33,11 @@ const styles = {
 
 const colors = {
   brand: {
-    700: "#191B20",
-    900: "#0B0B0D",
+    purple: '#7033CA',
+    dark_gray: '#393A3E',
+    light_gray: '#373739',
+    700: "#E9EAF3",
+    900: "#F3F4FD",
   },
 }
 
@@ -44,7 +47,7 @@ const fonts = {
 }
 
 const config = {
-  initialColorMode: "dark",
+  initialColorMode: "light",
   useSystemColorMode: false,
 }
 

@@ -39,7 +39,7 @@ export const Registration: React.FC<IRegistrationProps> = ({ onSubmitHandle, isL
         }
         {
           isLoading &&
-          <Box pos={'absolute'} top={0} r={0} w={'100%'} h={'100%'} bg={'#191B20'} zIndex={1}>
+          <Box pos={'absolute'} top={0} r={0} w={'100%'} h={'100%'} bg={'#fff'} zIndex={1}>
             <Preloader />
           </Box>
         }
@@ -86,8 +86,8 @@ export const Registration: React.FC<IRegistrationProps> = ({ onSubmitHandle, isL
         </VStack>
 
         <VStack alignItems={'stretch'} spacing={5} mt={8}>
-          <Button type={'submit'} bg={'purple.600'} _hover={{ bg: 'purple.500' }} _focus={{ boxShadow: "none", }}>Зарегистрироваться</Button>
-          <Button as={Link} to={'/auth/login'} size="sm" variant="link" _focus={{ boxShadow: "none", }}>Есть аккаунт?</Button>
+          <Button type={'submit'} bg={'brand.purple'} color={'#fff'} _hover={{ bg: 'purple.500' }} _focus={{ boxShadow: "none", }}>Зарегистрироваться</Button>
+          <Button as={Link} to={'/auth/login'} size="sm"  color={'brand.dark_gray'} variant="link" _focus={{ boxShadow: "none", }}>Есть аккаунт?</Button>
         </VStack>
       </Box>
 

@@ -1,6 +1,6 @@
 import { Button } from '@chakra-ui/button';
 import Icon from '@chakra-ui/icon';
-import { Box, Flex, Heading, Text } from '@chakra-ui/layout';
+import { Box, Flex, Heading, HStack, Text, VStack } from '@chakra-ui/layout';
 import React from 'react';
 import { VscAccount } from 'react-icons/vsc';
 import { Error } from '../../components/Error/Error';
@@ -25,10 +25,10 @@ export const UsersList: React.FC<IUsersListProps> = ({ users, isLoading, isFetch
   const isGlobalLoading = isLoading || isFetching
 
   return (
-    <Flex maxW={'500px'} mx={'auto'} bg={'brand.700'} flexDirection={'column'} borderRadius={'md'} pb={5} h={'100%'}>
-      <Box p={4}>
-        <Heading fontSize={'22px'}>{isGlobalLoading ? 'Загрузка...' : 'Выберите пользователя'}</Heading>
-        <Text fontSize="md" color={'purple.400'}>для создания диалога </Text>
+    <Flex maxW={'800px'} flexDirection={'column'} borderRadius={'md'} pb={5} h={'100%'}>
+      <Box mb={9}>
+        <Heading fontSize={'32px'}>{isGlobalLoading ? 'Загрузка...' : 'Выберите пользователя'}</Heading>
+        <Text fontSize={'23px'} color={'purple.400'}>для создания диалога </Text>
       </Box>
       {error && error.data &&
         <Box p={4}>
@@ -42,7 +42,10 @@ export const UsersList: React.FC<IUsersListProps> = ({ users, isLoading, isFetch
       {
         isGlobalLoading
           ? <Preloader my={'20px'} />
-          : users && users.map(user => <UserItem key={user._id} user={user} onCreateDialogHandle={onCreateDialogHandle} />)
+          :
+          <VStack alignItems={'stretch'} spacing={4}>
+            {users && users.map(user => <UserItem key={user._id} user={user} onCreateDialogHandle={onCreateDialogHandle} />)}
+          </VStack>
       }
     </Flex>
   );
@@ -53,18 +56,20 @@ const UserItem: React.FC<{ user: IUser, onCreateDialogHandle(user: IUser): void 
   return <Button
     data-user-id={user._id}
     key={user._id}
-    variant={'ghost'}
+    bg={'#fff'}
     d={'flex'}
     alignItems={'center'}
-    colorScheme={'purple'}
-    color={'white'}
+    colorScheme={'white'}
+    color={'brand.light_gray'}
     px={4}
-    py={7}
+    py={9}
     justifyContent={'flex-start'}
-    borderRadius={'0'}
+    borderRadius={'md'}
+    boxShadow="sm"
     _focus={{ boxShadow: "none" }}
+    _hover={{ transform: 'scale(1.03)', boxShadow: 'lg' }}
     onClick={() => onCreateDialogHandle(user)}
   >
-    <Icon as={VscAccount} boxSize={'22px'} mr={3} color={'purple.200'} /> {user.firstName + ' ' + user.lastName}
+    <Icon as={VscAccount} boxSize={'22px'} mr={3} /> {user.firstName + ' ' + user.lastName}
   </Button>
 }
