@@ -1,6 +1,6 @@
 import { Button } from '@chakra-ui/button';
 import Icon from '@chakra-ui/icon';
-import { Box, Flex } from '@chakra-ui/layout';
+import { Box, Flex, Heading } from '@chakra-ui/layout';
 import { Fade } from '@chakra-ui/transition';
 import React from 'react';
 import { VscAccount } from 'react-icons/vsc';
@@ -28,6 +28,9 @@ export const Dialogs: React.FC<IDialogsProps> = ({ dialogs, isFetching, isLoadin
 
   return (
     <Flex flexDirection={'column'} h={'100%'} height={'600px'} overflowY={'auto'}>
+      <Box p={7}>
+        <Heading fontSize={'32px'}>{isGlobalLoading ? 'Загрузка...' : 'Ваши диалоги'}</Heading>
+      </Box>
       {error && error.data &&
         <Box p={4}>
           <Error
@@ -40,9 +43,7 @@ export const Dialogs: React.FC<IDialogsProps> = ({ dialogs, isFetching, isLoadin
       {
         isGlobalLoading
           ? <Preloader my={'20px'} />
-          : dialogs?.length
-            ? dialogs.map(dialog => <DialogItem key={dialog._id} dialog={dialog} />)
-            : <Box p={4}>Нет диалогов</Box>
+          : dialogs && dialogs.map(dialog => <DialogItem key={dialog._id} dialog={dialog} />)
       }
     </Flex>
   );

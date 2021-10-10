@@ -1,6 +1,6 @@
 import { Button } from '@chakra-ui/button';
 import Icon from '@chakra-ui/icon';
-import { Box, Flex, Heading, HStack, Text, VStack } from '@chakra-ui/layout';
+import { Box, Flex, Heading, Text, VStack } from '@chakra-ui/layout';
 import React from 'react';
 import { VscAccount } from 'react-icons/vsc';
 import { Error } from '../../components/Error/Error';

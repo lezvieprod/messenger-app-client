@@ -1,24 +1,16 @@
 
-import { Box, Flex, Heading, Text } from '@chakra-ui/layout';
+import { Box, Flex } from '@chakra-ui/layout';
 import React from 'react';
 import { Route } from 'react-router';
 import DialogsContainer from '../../containers/Dialogs/DialogsContainer';
 import MessagesContainer from '../../containers/Messages/MessagesContainer';
-import { useAuth } from '../../hooks/auth.hook';
 
 export const Messenger: React.FC = () => {
-
-  const { firstName, lastName } = useAuth()
-
 
   return (
     <Flex h={'100%'} bg={'#fff'} borderRadius={'md'} boxShadow="sm">
       <Flex flexDirection={'column'} w={'340px'} minW={'340px'}>
-        <Box p={7}>
-          <Heading fontSize={'32px'}>Ваши диалоги</Heading>
-        </Box>
         <DialogsContainer />
-
       </Flex>
       <Box w={'100%'}>
         <Route exact path={'/'}>

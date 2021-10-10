@@ -40,31 +40,22 @@ export const api = createApi({
     createDialog: builder.mutation<void, IUser>({
       query: (user) => ({ url: `dialogs/createdialog`, method: 'POST', body: user }),
     }),
+    getOneDialog: builder.query<IDialog, string>({
+      query: (dialogId) => ({ url: `dialogs/dialog/${dialogId}`, method: 'GET' }),
+    }),
     getAllDialogs: builder.query<IDialog[], string>({
       query: (currentUserId) => ({ url: `dialogs/${currentUserId}` }),
       async onCacheEntryAdded(_, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
         try {
           await cacheDataLoaded
-
-          const updateLastMessage = (message: string, dialogId: string) => {
-            updateCachedData((draft) => {
-              const arr = draft.find((dialog) => dialog._id === dialogId)
-              if(arr) {
-                arr.lastMessage = message;
-              }
-
-            })
-          }
-
-
+          const updateLastMessage = (message: string, dialogId: string) => updateCachedData((draft) => {
+            const arr = draft.find((dialog) => dialog._id === dialogId)
+            if (arr) arr.lastMessage = message;
+          })
           socket.on('DIALOG:UPDATE_LAST_MESSAGE', updateLastMessage)
         } catch { }
-
         await cacheEntryRemoved
-
-
         socket.off("DIALOG:UPDATE_LAST_MESSAGE");
-
       },
     }),
     /*=== Работа с сообщениями ===*/
@@ -76,30 +67,18 @@ export const api = createApi({
       async onCacheEntryAdded(_, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) {
         try {
           await cacheDataLoaded
-
-          const setNewMessage = (message: IMessage) => {
-            console.log('API MESSAGE', message);
-            
-            updateCachedData((draft) => {
-              draft.push({ ...message })
-            })
-          }
-
-          const deleteMessage = (_id: string) => {
-            updateCachedData((draft) => {
-              draft.splice(draft.findIndex((message) => message._id === _id), 1);
-            })
-          }
-
+          const setNewMessage = (message: IMessage) => updateCachedData((draft) => {
+            draft.push({ ...message })
+          })
+          const deleteMessage = (_id: string) => updateCachedData((draft) => {
+            draft.splice(draft.findIndex((message) => message._id === _id), 1);
+          })
           socket.on('MESSAGE:SET_NEW_MESSAGE', setNewMessage)
           socket.on('MESSAGE:DELETE', deleteMessage)
         } catch { }
-
         await cacheEntryRemoved
-
         socket.off("MESSAGE:SET_NEW_MESSAGE");
         socket.off("MESSAGE:DELETE");
-
       },
     }),
   }),
@@ -115,6 +94,7 @@ export const {
   /*=== Работа с диалогами ===*/
   useCreateDialogMutation,
   useGetAllDialogsQuery,
+  useGetOneDialogQuery,
   /*=== Работа с сообщениями ===*/
   useCreateMessageMutation,
   useGetMessagesQuery

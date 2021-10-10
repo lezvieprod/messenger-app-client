@@ -40,7 +40,7 @@ export const useAuth = () => {
     } catch ({ data }) {
       if (isApiError(data)) {
         toast({ title: data.title, description: data.message, position: "bottom-right", status: "error", isClosable: true })
-      }
+      } 
       localStorage.removeItem(storageName)
     }
   }, [dispatch, asyncMutate, getCurrentUser, toast])

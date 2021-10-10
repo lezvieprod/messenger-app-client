@@ -1,6 +1,6 @@
 import { Button } from '@chakra-ui/button';
 import Icon from '@chakra-ui/icon';
-import { Box, Container, Text, Flex, VStack } from '@chakra-ui/layout';
+import { Box, Text, Flex, VStack } from '@chakra-ui/layout';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { VscHome, VscSmiley } from "react-icons/vsc";
@@ -85,8 +85,8 @@ const NavButton: React.FC<{ icon: IconType, buttonText: string, [rest: string]: 
   >
     <Icon as={icon} boxSize={'20px'} mr={4} />
     {buttonText}
-  </Button> :
-
+  </Button>
+    :
     <Button
       {...rest}
       fontSize={'14px'}

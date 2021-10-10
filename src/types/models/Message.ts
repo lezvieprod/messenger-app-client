@@ -5,4 +5,5 @@ export interface IMessage {
   sendDate?: Date,
   dialogId: string,
   ownerId: string,
+  isReaded?: boolean
 }
